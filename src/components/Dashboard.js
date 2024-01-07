@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { Layout, Button, Table, Modal, Form, Input, Switch } from 'antd';
 import { PlusOutlined, EyeOutlined } from '@ant-design/icons';
 import {Link} from 'react-router-dom'
+import { MoonOutlined, SunOutlined } from '@ant-design/icons';
+
 
 const { Header, Content } = Layout;
 
@@ -65,14 +67,15 @@ const Dashboard = () => {
     <Layout style={{ minHeight: '100vh', background: darkMode ? '#001529' : '#fff', color: darkMode ? '#fff' : '#000' }}>
       <Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px' }}>
         <div>
-          <img src="your-logo-url" alt="Logo" style={{ height: '32px', marginRight: '16px' }} />
-          <Link to="/form" ><Button icon={<PlusOutlined />} >Add Response</Button></Link>
+          {/* <img src="your-logo-url" alt="Logo" style={{ height: '32px', marginRight: '16px' }} /> */}
         </div>
+        <h3 style={{color:'white'}}>VRNC</h3>
+        <Link to="/form" ><Button icon={<PlusOutlined />} >Add Response</Button></Link>
         <Switch checked={darkMode} onChange={toggleDarkMode} />
       </Header>
-      <Content style={{ padding: '24px' }}>
+      {/* <Content style={{ padding: '24px' }}>
         <Table columns={columns} dataSource={data} />
-      </Content>
+      </Content> */}
       {/* Add Form Modal */}
       <Modal title="Add Item" visible={addFormVisible} onOk={hideAddForm} onCancel={hideAddForm}>
         <Form {...layout}>
