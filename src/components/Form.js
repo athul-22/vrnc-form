@@ -70,24 +70,105 @@ const steps = [
     title: '',
     content: () => <div>
         <h3>Section 3</h3>
+        <div style={{ width: '30%' }}>
+        <Form.Item label="1) Training Session Photo" name="trainingphoto1" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="2) Training Session Photo" name="trainingphoto2" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="3) Training Session Photo" name="trainingphoto3" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="4) Training Session Photo" name="trainingphoto4" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="5) Training Session Photo" name="trainingphoto5" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="6) Training Session Photo" name="trainingphoto6" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="7) Training Session Photo" name="trainingphoto7" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="8) Training Session Photo" name="trainingphoto8" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+      </div>
     </div>,
   },
   {
     title: '',
     content: () => <div>
         <h3>Section 4</h3>
+        <div style={{ width: '30%' }}>
+        <Form.Item label="1) QA Section Photo" name="qasectionphoto" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item label="2) Refreshments  Session Photo" name="refreshsectionphoto" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+      </div>
     </div>,
   },
   {
     title: '',
     content: () => <div>
         <h3>Section 5</h3>
+        <div style={{ width: '30%' }}>
+        <Form.Item label="1) Honouring Chief Guest Session Photo" name="honouringphoto1" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+        <Form.Item label="2) Honouring Chief Guest Session Photo" name="honouringphoto2" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+      </div>
     </div>,
   },
   {
     title: '',
     content: () => <div>
         <h3>Section 6</h3>
+        <div style={{ width: '30%' }}>
+        <Form.Item label="1) Group Photo" name="groupphoto" rules={[{ required: true, }]}>
+          <Upload beforeUpload={() => false} showUploadList={false} style={{ display: 'block', justifyContent: 'center' }}>
+            <Button style={{ marginLeft: "" }} icon={<UploadOutlined />}>Upload Photo</Button>
+          </Upload>
+        </Form.Item>
+      </div>
     </div>,
   },
 ];
