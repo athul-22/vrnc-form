@@ -79,7 +79,7 @@ const Dashboard = () => {
       {/* Add Form Modal */}
       <Modal title="Add Item" visible={addFormVisible} onOk={hideAddForm} onCancel={hideAddForm}>
         <Form {...layout}>
-          <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>
+          <Form.Item label="Name" name="name" rules={[{ required: false, message: 'Please input the name!' }]}>
             <Input />
           </Form.Item>
           {/* Add more form fields as needed */}
