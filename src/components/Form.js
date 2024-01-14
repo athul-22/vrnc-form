@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Form, Button, Steps, Upload, Row, Col, Input, message, theme } from 'antd';
+import React, { useState,useEffect } from 'react';
+import { Form, Button, Steps, Upload, Row, Col, Input, message ,theme} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { useForm, FormProvider } from 'rc-field-form'; // Correct import from rc-field-form
+import { useForm } from 'antd/lib/form/Form'; // Import useForm from the correct path
 import axios from 'axios';
+// import { useForm, FormProvider } from 'rc-field-form'; // Correct import from rc-field-form
 
 const { Step } = Steps;
 
@@ -16,16 +17,40 @@ const FormComponent = () => {
   const [current, setCurrent] = useState(0);
   const [formValues, setFormValues] = useState({});
 
+  const [showroom , SetShowRoom ] = useState("");
+
+
+
   const updateFormValues = (changedValues) => {
     console.log('Changed values:', changedValues);
     setFormValues((prevValues) => ({ ...prevValues, ...changedValues }));
   };
+  //✅ WORKING V1
+  // const next = async () => {
+  //   try {
+  //     const values = await form.validateFields();
+  //     await form.validateFields();
+  //     console.log(form);
+  //     setCurrent(current + 1);
+  //     console.log('Step X - Form values:', formValues);
+  //   } catch (errorInfo) {
+  //     console.error('Form validation failed:', errorInfo);
+  //   }
+  // };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+  };
 
   const next = async () => {
+
+    console.log(showroom);
     try {
-      await form.validateFields();
+      const values = await form.validateFields();
+      console.log('Step X - Form values:', values);
+      // Access form values here, e.g., const showroom = values.showroom;
       setCurrent(current + 1);
-      console.log('Step X - Form values:', formValues);
     } catch (errorInfo) {
       console.error('Form validation failed:', errorInfo);
     }
@@ -56,25 +81,47 @@ const FormComponent = () => {
   //   }
   // };
 
-  const onFinish = async () => {
+  // useEffect(() => {
+  //   const showroomValue = form.getFieldValue('showroom');
+  //   console.log('Showroom value:', showroomValue);
+  // }, [form]);
+
+  // ✅ V1 ONFINISH
+  // const onFinish = async () => {
+
+  //   const showroom = form.getFieldValue('showroom');
+  //   console.log(showroom);
+
+  //   try {
+  //     const values = await form.validateFields();
+  //     console.log('Form values:', values);
+
+  //     // Send form data to the backend API
+  //     const response = await axios.post('http://localhost:3001/api/submit-form', { formData: values });
+
+  //     // Handle the response from the server
+  //     if (response.status === 200) {
+  //       // Update state, show success message, or perform other actions
+  //       console.log('Form data submitted successfully!');
+  //       message.success('Processing complete!');
+  //       setFormValues(values);
+  //       setCurrent(current + 1);
+  //     } else {
+  //       console.error('Error submitting form data:', response.data.message);
+  //       message.error('Error submitting form data');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error in onFinish:', error);
+  //   }
+  // };
+
+
+  const onFinish = async (form) => {
     try {
       const values = await form.validateFields();
-      console.log('Form values:', values);
-
-      // Send form data to the backend API
-      const response = await axios.post('http://localhost:3001/api/submit-form', { formData: values });
-
-      // Handle the response from the server
-      if (response.status === 200) {
-        // Update state, show success message, or perform other actions
-        console.log('Form data submitted successfully!');
-        message.success('Processing complete!');
-        setFormValues(values);
-        setCurrent(current + 1);
-      } else {
-        console.error('Error submitting form data:', response.data.message);
-        message.error('Error submitting form data');
-      }
+      const showroom = values.showroom;
+      console.log('Showroom value:', showroom);
+      // Rest of your logic, e.g., sending data to the server
     } catch (error) {
       console.error('Error in onFinish:', error);
     }
@@ -96,12 +143,9 @@ const FormComponent = () => {
 
             <h3>Section 1</h3>
 
-            <Form preserve={true} >
-              <Form.Item label="1) ShowRoom Name" name="showroom" onValuesChange={updateFormValues}>
-                <Input />
-              </Form.Item>
-
-              <Form.Item label="2) ShowRoom Location" name="location"onValuesChange={(changedValues) => updateFormValues(changedValues)} >
+            <input name="showroom" value={showroom} onChange={(e)=>SetShowRoom(e.target.value)}/>
+<Form>
+              <Form.Item label="2) ShowRoom Location" name="location" onValuesChange={(changedValues) => updateFormValues(changedValues)} >
                 <Input />
               </Form.Item>
               <Form.Item label="3) Program conducted on" name="date" onValuesChange={(changedValues) => updateFormValues(changedValues)}>
@@ -277,7 +321,7 @@ const FormComponent = () => {
   };
 
   return (
-    <FormProvider {...form}>
+    <Form.Provider {...form}>
       <div style={{ margin: '20px' }}>
         <Steps current={current} items={items} direction="horizontal" style={{ width: '100%', overflowY: 'auto', height: '50px' }} responsive={false} />
         <Row justify="center">
@@ -297,7 +341,7 @@ const FormComponent = () => {
                     </Button>
                   )}
                   {current === steps.length - 1 && (
-                    <Button type="primary" onClick={() => onFinish()}>
+                    <Button type="primary" onClick={() => onFinish(form)}>
                       Done
                     </Button>
                   )}
@@ -312,7 +356,7 @@ const FormComponent = () => {
           </Col>
         </Row>
       </div>
-    </FormProvider>
+      </Form.Provider>
   );
 };
 
