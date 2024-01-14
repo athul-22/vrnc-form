@@ -1,6 +1,13 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import CloudGif from '../animations/cloud.gif'
+import Logo1 from '../images/logo1.png'
+import Logo2 from '../images/logo2.png'
+import Logo3 from '../images/logo3.png'
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+
+
 
 function Report() {
 
@@ -25,10 +32,15 @@ function Report() {
         return buffer ? buffer.toString('base64') : '';
     };
 
-  
+    const handleGeneratePdf = () => {
+        window.print()
+    };
+
+      
 
     return (
         <div className="report">
+            
             {reportData == null ? (
                 <>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
@@ -37,7 +49,7 @@ function Report() {
                     </div>
                 </>
             ) : (
-                <div style={{ margin: '40px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                <div id="pdfContent" style={{ margin: '100px', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <p style={{ fontWeight: 'bold' }}>BEE – TNSDA Retailer Training Program </p> <p>{reportData.showroom}</p>
                     </div>
@@ -55,18 +67,23 @@ function Report() {
                     </center>
 
                     <center><p>Location<br />
-                        Showroom_location<br />
-                        Program_Conducted_on</p></center>
+                        {reportData.location}<br />
+                        {reportData.date}</p></center>
 
+                        <hr style={{ height: '.5px', background: 'blue', width: '90%', }} />
                     <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Program Supported by</p>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" style={{ height: "200px", width: '200px', }} />
-                        <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" style={{ height: "200px", width: '200px', }} />
-                        <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" style={{ height: "200px", width: '200px', }} />
+                    <div style={{display:'flex',justifyContent:'center'}}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width:'50%' }}>
+                        <img src={Logo1} style={{ height: "100px", width: '100px', }} />
+                        <img src={Logo2} style={{ height: "70px", width: '150px',marginTop:'20px' }} />
+                        <img src={Logo3} style={{ height: "100px", width: '100px', }} />
                     </div>
+                    </div>
+                    <hr style={{ height: '.5px', background: 'blue', width: '90%',  }} />
 
-                    <p> Program Organized & ReportSubmitted by<br />
-                        Shri. S Sundaramoorthy | Empanelled Consultant with TNSDA | Representing VRNC| technical@vrnc.in | +91-8285172109 | www.vrnc.in</p>
+                    <p style={{textAlign:'center',fontWeight:'bold'}}>  Program Organized & ReportSubmitted by<br />
+                        Shri. S Sundaramoorthy | Empanelled Consultant with TNSDA | Representing VRNC| <br />
+                        <a href="#">technical@vrnc.in </a> | <a href="#"> +91-8285172109 </a> | <a href="#">www.vrnc.in</a> </p>
 
                     <h2 style={{ fontSize: '25px' }}>Program Summary</h2>
 
@@ -76,20 +93,20 @@ function Report() {
 
                     <p>TANGEDCO has notified its Demand Side Management (DSM) wing as Tamil Nadu State Designated Agency (TNSDA) for carrying out energy conservation activities and implementing related schemes.</p>
 
-                    <h2 style={{ fontSize: '25px' }}>Program Objective</h2>
+                    <h2 style={{ fontSize: '20px' }}>Program Objective</h2>
                     <p>BEE is implementing the Standards & Labelling program (Star Labelling) to provide the consumer with an informed choice about energy saving and thereby the cost-saving potential of the marketed household and other equipment. As of date, Star labels are affixed to 35 categories of appliances, mostly household appliances.</p>
                     <p>TANGEDCO as TNSDA at the Tamil Nadu state level, encourages the retailers/ traders/ sales officers/ associated people to home appliance sales to participate in this training program to be aware of this scheme, compliances linked with their shop and how to guide consumers to choose energy-efficient home appliance</p>
 
-                    <h2>Showroom Photo</h2>
+                    <h2 style={{ fontSize: '20px' }}>Showroom Photo</h2>
+                    <img src={reportData.showroomphoto} height="300px" width="400px" />
 
-                    <img src={reportData.showroomphoto} height="200px" width="300px" />
+                    <h2 style={{ fontSize: '20px' }}>Program Banner</h2>
+                    <img src={reportData.programbanner} height="300px" width="400px" />
 
-                    <h2>Program Banner</h2>
+                    {/* <p>Showroom Name Address No of Participants Date</p> */}
 
-                    <p>Showroom Name Address No of Participants Date</p>
-
-                    <h2>Participants List (Attendance Sheet)</h2>
-
+                    <h2 style={{ fontSize: '20px' }}>Participants List (Attendance Sheet)</h2>
+                    <img src={reportData.participantslist} height="300px" width="400px" />
                     <table>
                         <tr>
                             <th>Name</th>
@@ -109,40 +126,49 @@ function Report() {
                     </table>
 
                     <h2>Training Session Photo</h2>
-
-                    <img src="" />
-
-                    <h2>Training Session Photo</h2>
-
-                    <img src="" />
+                    <img src={reportData.trainingphoto1} height="300px" width="400px" />
 
                     <h2>Training Session Photo</h2>
-
-                    <img src="" />
+                    <img src={reportData.trainingphoto2} height="300px" width="400px" /> <img src="" />
 
                     <h2>Training Session Photo</h2>
+                    <img src={reportData.trainingphoto3} height="300px" width="400px" />
 
-                    <img src="" />
+                    <h2>Training Session Photo</h2>
+                    <img src={reportData.trainingphoto4} height="300px" width="400px" />
+
+                    <h2>Training Session Photo</h2>
+                    <img src={reportData.trainingphoto5} height="300px" width="400px" />
+
+                    <h2>Training Session Photo</h2>
+                    <img src={reportData.trainingphoto6} height="300px" width="400px" />
+
+                    <h2>Training Session Photo</h2>
+                    <img src={reportData.trainingphoto7} height="300px" width="400px" />
+
+                    <h2>Training Session Photo</h2>
+                    <img src={reportData.trainingphoto8} height="300px" width="400px" />
 
                     <h2>QA Session Photo</h2>
-
-                    <img src="" />
+                    <img src={reportData.qasectionphoto} height="300px" width="400px" />
 
                     <h2>Refreshments Session Photo</h2>
-
-                    <img src="" />
+                    <img src={reportData.refreshsectionphoto} height="300px" width="400px" />
 
                     <h2>Honouring Chief Guest Session Photo</h2>
+                    <img src={reportData.honouringphoto1} height="300px" width="400px" />
 
-                    <img src="" />
+                    <h2>Honouring Chief Guest Session Photo</h2>
+                    <img src={reportData.honouringphoto2} height="300px" width="400px" />
 
                     <h2>Group Photo</h2>
-
-                    <img src="" />
+                    <img src={reportData.groupphoto} height="300px" width="400px" />
 
                 </div>
             )}
+            <button onClick={handleGeneratePdf}>Generate PDF</button>
         </div>
+        
     );
 }
 
