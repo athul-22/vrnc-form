@@ -532,7 +532,7 @@ const FormComponent = () => {
 
   return (
     <Form.Provider {...form}>
-      <div style={{ margin: '10px' }}>
+      <div style={{ margin: '' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '70px' }}>
           <Steps current={current} items={items} direction="horizontal" style={{ width: '80%', overflowY: 'auto', height: '50px' }} responsive={false} />
         </div>
