@@ -17,26 +17,34 @@ const Dashboard = () => {
   // Define table columns
   const columns = [
     { title: 'Sl. No', dataIndex: 'slNo', key: 'slNo' },
+    { title: 'Action', key: 'action', render: (_, record) => <Button icon={<EyeOutlined />} onClick={() => handleView(record)}></Button> },
     { title: 'Showroom', dataIndex: 'showroom', key: 'showroom' },
     { title: 'Location', dataIndex: 'location', key: 'location' },
     { title: 'Date', dataIndex: 'date', key: 'date' },
-    { title: 'Action', key: 'action', render: (_, record) => <Button icon={<EyeOutlined />} onClick={() => handleView(record)}></Button> },
   ];
-
-
 
   // Handler for viewing details
   const handleView = (record) => {
-    Modal.info({
+    Modal.success({
       title: 'View Details',
       content: (
         <div>
-          <p>Name: {record.name}</p>
-          {/* Add more details as needed */}
-        </div>
+        <p>Showroom: {record.showroom}</p>
+        <p>Location: {record.location}</p>
+        <p>Date: {record.date}</p>
+      </div>
       ),
       onOk() {},
+      footer: [
+        <Button key="showFullReport" type="primary" onClick={() => handleShowFullReport(record._id)}>
+          Show Full Report
+        </Button>,
+      ],
     });
+  };
+
+  const handleShowFullReport = (record) => {
+    window.location.href = `http://localhost:3000/report/${record}`;
   };
 
   // Handler for toggling dark mode
@@ -58,6 +66,7 @@ const Dashboard = () => {
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
+    style: { margin: 0 },
   };
 
 //USEEFFECT FOR FETCHING FORMS
@@ -71,6 +80,7 @@ useEffect(() => {
         showroom: item.showroom,
         location: item.location,
         date: item.date,
+        _id: item._id,
         // Add more fields as needed
       }));
       setFormData(formattedData);
@@ -79,7 +89,7 @@ useEffect(() => {
 }, []);
 
   return (
-    <Layout style={{ minHeight: '100vh', background: darkMode ? '#001529' : '#fff', color: darkMode ? '#fff' : '#000' }}>
+    <Layout style={{minHeight: '100vh', background: darkMode ? '#001529' : '#fff', color: darkMode ? '#fff' : '#000' }}>
       <Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px' }}>
         <div>
           {/* <img src="your-logo-url" alt="Logo" style={{ height: '32px', marginRight: '16px' }} /> */}
@@ -88,9 +98,10 @@ useEffect(() => {
         <Link to="/form" ><Button icon={<PlusOutlined />} >Add Response</Button></Link>
         <Switch checked={darkMode} onChange={toggleDarkMode} />
       </Header>
-      <Content style={{ padding: '24px' }}>
-        <Table columns={columns} dataSource={formData} /> {/* Use formData instead of dummy data */}
+      <Content style={{ padding: '1px' }}>
+        <Table columns={columns} dataSource={formData} scroll={{ x: true }} />
       </Content>
+      
       {/* Add Form Modal */}
       <Modal title="Add Item" visible={addFormVisible} onOk={hideAddForm} onCancel={hideAddForm}>
         <Form {...layout}>
