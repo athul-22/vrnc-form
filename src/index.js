@@ -4,6 +4,7 @@ import './index.css';
 import { BrowserRouter as Router,Routes, Route, Link, Switch } from "react-router-dom";
 import App from './App';
 import Form from './components/Form';
+import Report from './components/Report';
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 // import reportWebVitals from './reportWebVitals';
 
@@ -14,6 +15,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/form" element={<Form />} />
+        <Route path="/report/:id" element={<Report />} />
       </Routes>
     </Router>
   </BrowserRouter>

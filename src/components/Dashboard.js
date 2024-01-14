@@ -24,24 +24,34 @@ const Dashboard = () => {
   ];
 
   // Handler for viewing details
-  const handleView = (record) => {
-    Modal.success({
-      title: 'View Details',
-      content: (
-        <div>
+const handleView = (record) => {
+  Modal.success({
+    title: 'View Details',
+    content: (
+      <div>
         <p>Showroom: {record.showroom}</p>
         <p>Location: {record.location}</p>
         <p>Date: {record.date}</p>
       </div>
-      ),
-      onOk() {},
-      footer: [
-        <Button key="showFullReport" type="primary" onClick={() => handleShowFullReport(record._id)}>
-          Show Full Report
-        </Button>,
-      ],
-    });
-  };
+    ),
+    maskClosable: true, // Set this property to true
+    footer: [
+      <Button key="showFullReport" type="primary" onClick={() => handleShowFullReport(record._id)}>
+        Show Full Report
+      </Button>,
+      <Button key="close" type="secondary" style={{ backgroundColor: 'red', borderColor: 'red', color: 'white', marginLeft: '10px' }} onClick={() => handleClose()}>
+        Close
+      </Button>,
+    ],
+    onCancel: () => handleClose(),
+  });
+};
+
+
+const handleClose = () => {
+  Modal.destroyAll();
+};
+
 
   const handleShowFullReport = (record) => {
     window.location.href = `http://localhost:3000/report/${record}`;
@@ -99,7 +109,7 @@ useEffect(() => {
         <Switch checked={darkMode} onChange={toggleDarkMode} />
       </Header>
       <Content style={{ padding: '1px' }}>
-        <Table columns={columns} dataSource={formData} scroll={{ x: true }} />
+        <Table  columns={columns} dataSource={formData} scroll={{ x: true }} />
       </Content>
       
       {/* Add Form Modal */}

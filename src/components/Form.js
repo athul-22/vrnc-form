@@ -55,10 +55,6 @@ const FormComponent = () => {
   };
 
   const next = async () => {
-
-    console.log(showroom);
-    console.log(date);
-    console.log(location);
     try {
       const values = await form.validateFields();
       console.log('Step X - Form values:', values);
@@ -103,6 +99,7 @@ const FormComponent = () => {
         message.success('Processing complete!');
         setFormValues(values);
         setCurrent(current + 1);
+        window.location.href = '/';
       } else {
         console.error('Error submitting form data:', response.data.message);
         message.error('Error submitting form data');
@@ -161,7 +158,7 @@ const FormComponent = () => {
 
             <div>
               <div className='file-upload-main'>
-                <label htmlFor="ephoto">8: Training Photo 1</label>
+                <label htmlFor="ephoto">4: Entrance photo</label>
                 <div className='file-upload'>
                   <Upload
                     listType="text"
@@ -178,7 +175,7 @@ const FormComponent = () => {
 
             <div>
               <div className='file-upload-main'>
-                <label htmlFor="showroomphoto">8: Training Photo 1</label>
+                <label htmlFor="showroomphoto">5: Showroom Photo</label>
                 <div className='file-upload'>
                   <Upload
                     listType="text"
